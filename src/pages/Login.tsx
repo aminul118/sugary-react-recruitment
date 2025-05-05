@@ -1,31 +1,14 @@
-
-import { useState } from "react";
-
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../providers/AuthContex";
+import LgoinForm from "@/components/login/LgoinForm";
+import LoginBanner from "@/components/login/LoginBanner";
 
 const Login = () => {
-  const [username, setUsername] = useState("react@test.com");
-  const [password, setPassword] = useState("playful009");
-  const { login } = useAuth();
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await login(username, password);
-    navigate("/dashboard");
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
-      <input value={username} onChange={(e) => setUsername(e.target.value)} />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">Login</button>
-    </form>
+    <section className="h-screen flex flex-col justify-center px-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center px-2 lg:px-0 justify-between max-w-5xl mx-auto lg:shadow-2xl lg:rounded-lg">
+        <LoginBanner />
+        <LgoinForm />
+      </div>
+    </section>
   );
 };
 

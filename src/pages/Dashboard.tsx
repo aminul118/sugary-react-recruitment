@@ -48,11 +48,12 @@ const Dashboard = () => {
     if (observerRef.current) observer.observe(observerRef.current);
     return () => observer.disconnect();
   }, [loading]);
+  console.log(materials);
 
   return (
     <div>
       <h1>Dashboard</h1>
-      <div className="grid">
+      <div className="grid grid-cols-4">
         {materials.map((m) => (
           <MaterialCard key={m.Id} data={m} />
         ))}
