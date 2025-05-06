@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/providers/AuthContex";
+import { useAuth } from "@/providers/AuthContext";
 import { Label } from "../ui/label";
 
 type LoginFormInputs = {

@@ -1,5 +1,5 @@
 import { bottomLinks, navLinks } from "@/lib/constant/navLinks";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 
 const SideNav = () => {
   const linkStyle =
@@ -9,7 +9,12 @@ const SideNav = () => {
     <aside className="fixed left-0 top-0 h-screen w-[270px] xl:w-[300px] px-4 bg-slate-900 shadow-lg overflow-y-auto z-50 text-white/95 flex flex-col justify-between">
       {/* Top - Title & Navigation */}
       <div>
-        <h1 className="text-2xl font-semibold ml-6 py-4">Dashboard</h1>
+        <div className="ml-6 py-4">
+          <NavLink to="/dashboard" className="text-2xl font-semibold ">
+            Dashboard
+          </NavLink>
+        </div>
+
         <nav className="p-4">
           <ul className="space-y-4">
             {navLinks.map(({ to, label, icon }) => (

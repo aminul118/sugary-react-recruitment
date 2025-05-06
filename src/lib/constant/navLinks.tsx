@@ -26,8 +26,8 @@ const navLinks = [
 
 const bottomLinks = [
   {
-    to: "https://www.shrlbd.com",
-    label: "SHRL Home",
+    to: "/",
+    label: "Home",
     icon: <Home />,
     external: true,
   },
