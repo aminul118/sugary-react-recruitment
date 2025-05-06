@@ -25,10 +25,10 @@ const LgoinForm = () => {
     navigate("/dashboard");
   };
   return (
-    <div>
+    <div className="dark:bg-slate-800 w-full h-full flex flex-col justify-center p-6 lg:rounded-r-2xl">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-4 max-w-96 mx-auto "
+        className="space-y-4 mx-auto md:w-96 "
       >
         <h1 className="text-5xl font-bold text-center mb-12">Login</h1>
         <Label htmlFor="username">Enter Your Username</Label>
