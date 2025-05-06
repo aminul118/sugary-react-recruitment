@@ -7,7 +7,7 @@ const SideNav = () => {
     "flex gap-2 items-center hover:text-blue-400 transition-all";
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-[270px] xl:w-[300px] px-4 bg-slate-900 shadow-lg overflow-y-auto z-50 text-white/95 flex flex-col justify-between">
+    <aside className="hidden fixed left-0 top-0 h-screen w-[270px] xl:w-[300px] px-4 bg-slate-900 shadow-lg overflow-y-auto z-50 text-white/95 lg:flex flex-col justify-between">
       {/* Top - Title & Navigation */}
       <div>
         <div className="ml-6 py-4">

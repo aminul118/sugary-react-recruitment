@@ -1,4 +1,4 @@
-import LgoinForm from "@/components/login/LgoinForm";
+import LgoinForm from "@/components/login/LoginForm";
 import LoginBanner from "@/components/login/LoginBanner";
 
 const Login = () => {
