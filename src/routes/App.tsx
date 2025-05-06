@@ -4,6 +4,7 @@ import { AuthProvider } from "../providers/AuthContext";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Materials from "../pages/materials/Materials";
 import Dashboard from "@/pages/home/Dashboard";
+import PrivateRoute from "./PrivateRoute"; // Import PrivateRoute
 
 function App() {
   return (
@@ -11,9 +12,32 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="materials" element={<Materials />} />
+
+          {/* Wrap Dashboard and Materials with PrivateRoute */}
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <DashboardLayout />
+              </PrivateRoute>
+            }
+          >
+            <Route
+              index
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="materials"
+              element={
+                <PrivateRoute>
+                  <Materials />
+                </PrivateRoute>
+              }
+            />
           </Route>
         </Routes>
       </Router>
