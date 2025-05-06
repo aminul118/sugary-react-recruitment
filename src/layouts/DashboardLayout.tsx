@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-
 import SideNav from "./SideBar/SideNav";
 import MobileNavbar from "./Navbar/MobileNavbar";
 
