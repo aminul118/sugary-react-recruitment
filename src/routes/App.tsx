@@ -4,7 +4,8 @@ import { AuthProvider } from "../providers/AuthContext";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Materials from "../pages/materials/Materials";
 import Dashboard from "@/pages/home/Dashboard";
-import PrivateRoute from "./PrivateRoute"; // Import PrivateRoute
+import PrivateRoute from "./PrivateRoute";
+import LogOut from "@/pages/auth/LogOut";
 
 function App() {
   return (
@@ -12,8 +13,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/logout" element={<LogOut />} />
 
-          {/* Wrap Dashboard and Materials with PrivateRoute */}
           <Route
             path="/dashboard"
             element={

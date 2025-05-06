@@ -7,6 +7,7 @@ const AuthContext = createContext<any>(null);
 
 export const AuthProvider = ({ children }: Children) => {
   const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true); 
 
   const login = async (username: string, password: string) => {
     const res = await axios.post("/AdminAccount/Login", {
@@ -17,13 +18,17 @@ export const AuthProvider = ({ children }: Children) => {
     localStorage.setItem("accessToken", res.data.Token);
     localStorage.setItem("refreshToken", res.data.RefreshToken);
     setUser(res.data.User);
+    setLoading(false); 
   };
 
   const refreshAccessToken = async () => {
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
 
-    if (!accessToken || !refreshToken) return;
+    if (!accessToken || !refreshToken) {
+      setLoading(false); 
+      return;
+    }
 
     try {
       const res = await axios.post("/Account/RefreshToken", {
@@ -37,6 +42,8 @@ export const AuthProvider = ({ children }: Children) => {
     } catch (err) {
       console.error("Refresh token failed", err);
       logout();
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -47,11 +54,11 @@ export const AuthProvider = ({ children }: Children) => {
   };
 
   useEffect(() => {
-    refreshAccessToken(); // Try to restore session on load
+    refreshAccessToken(); 
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

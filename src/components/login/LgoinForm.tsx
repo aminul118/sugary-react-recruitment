@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/providers/AuthContext";
 import { Label } from "../ui/label";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 type LoginFormInputs = {
   username: string;
