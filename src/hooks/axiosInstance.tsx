@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const baseURL = "https://sugarytestapi.azurewebsites.net";
+const apiBaseUrl = import.meta.env.VITE_BASE_URL as string;
+
+const baseURL = `${apiBaseUrl}`;
 
 const axiosInstance = axios.create({ baseURL });
 
