@@ -1,5 +1,6 @@
 import { bottomLinks, navLinks } from "@/lib/constant/navLinks";
 import { Link, NavLink } from "react-router";
+import { ModeToggle } from "./MoodToggle";
 
 const SideNav = () => {
   const linkStyle =
@@ -44,6 +45,7 @@ const SideNav = () => {
               </Link>
             </li>
           ))}
+          <ModeToggle />
         </ul>
       </div>
     </aside>

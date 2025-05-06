@@ -4,7 +4,6 @@ import {
   GalleryHorizontal,
   Home,
   Rows4,
-  User,
 } from "lucide-react";
 
 const navLinks = [
@@ -31,7 +30,6 @@ const bottomLinks = [
     icon: <Home />,
     external: true,
   },
-  { to: "profile", label: "Profile", icon: <User /> },
 ];
 
 export { navLinks, bottomLinks };
