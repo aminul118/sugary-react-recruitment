@@ -3,6 +3,9 @@ import axios from "../../hooks/axiosInstance";
 import type { Material } from "@/lib/types/types";
 import encodeFilter from "@/utils/encodeFilter";
 import MaterialCard from "@/components/MaterialCard/MaterialCard";
+import Loader from "@/components/loading/Loader";
+import Container from "@/components/ui/Container";
+import MaterialCardSkeleton from "@/components/loading/MaterialCardSkeleton";
 
 const Materials = () => {
   const [materials, setMaterials] = useState<Material[]>([]);
@@ -49,14 +52,25 @@ const Materials = () => {
     return () => observer.disconnect();
   }, [loading]);
   console.log(materials);
+
+  if (loading && materials.length === 0) {
+    return (
+      <Container className="grid grid-cols-2 2xl:grid-cols-4 gap-4">
+        {Array.from({ length: 8 }).map((_, index) => (
+          <MaterialCardSkeleton key={index} />
+        ))}
+      </Container>
+    );
+  }
+
   return (
     <div>
-      <div className="grid grid-cols-2 2xl:grid-cols-4 gap-4">
+      <Container className="grid grid-cols-2 2xl:grid-cols-4 gap-4">
         {materials.map((m) => (
           <MaterialCard key={m.Id} data={m} />
         ))}
-      </div>
-      <div ref={observerRef}>Loading more...</div>
+      </Container>
+      <div ref={observerRef}> {loading && <Loader />}</div>
     </div>
   );
 };
