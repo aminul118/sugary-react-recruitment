@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import axios from "../../hooks/axiosInstance";
 import type { Material } from "@/lib/types/types";
 import encodeFilter from "@/utils/encodeFilter";
@@ -13,7 +13,7 @@ const Materials = () => {
   const [loading, setLoading] = useState(false);
   const observerRef = useRef<HTMLDivElement | null>(null);
 
-  const loadMaterials = async () => {
+  const loadMaterials = useCallback(async () => {
     setLoading(true);
     const filter = encodeFilter({ Skip: skip, Limit: 20, Types: [1] });
 
@@ -35,11 +35,11 @@ const Materials = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [skip]);
 
   useEffect(() => {
     loadMaterials();
-  }, []);
+  }, [loadMaterials]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -50,8 +50,7 @@ const Materials = () => {
 
     if (observerRef.current) observer.observe(observerRef.current);
     return () => observer.disconnect();
-  }, [loading]);
-  console.log(materials);
+  }, [loadMaterials, loading]);
 
   if (loading && materials.length === 0) {
     return (
@@ -65,12 +64,12 @@ const Materials = () => {
 
   return (
     <div>
-      <Container className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
+      <Container className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-4">
         {materials.map((m) => (
           <MaterialCard key={m.Id} data={m} />
         ))}
       </Container>
-      <div ref={observerRef}> {loading && <Loader />}</div>
+      <div ref={observerRef}>{loading && <Loader />}</div>
     </div>
   );
 };

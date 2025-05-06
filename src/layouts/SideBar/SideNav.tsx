@@ -1,6 +1,6 @@
+import { ModeToggle } from "@/components/ui/MoodToggle";
 import { bottomLinks, navLinks } from "@/lib/constant/navLinks";
 import { Link, NavLink } from "react-router";
-import { ModeToggle } from "../components/ui/MoodToggle";
 
 const SideNav = () => {
   const linkStyle =
