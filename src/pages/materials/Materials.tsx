@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from "react";
-import axios from "../hooks/axiosInstance";
-import encodeFilter from "../utils/encodeFilter";
-import MaterialCard from "../components/MaterialCard/MaterialCard";
-import type { Material } from "../lib/types/types";
+import axios from "../../hooks/axiosInstance";
+import type { Material } from "@/lib/types/types";
+import encodeFilter from "@/utils/encodeFilter";
+import MaterialCard from "@/components/MaterialCard/MaterialCard";
 
-const Dashboard = () => {
+const Materials = () => {
   const [materials, setMaterials] = useState<Material[]>([]);
   const [skip, setSkip] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -49,11 +49,9 @@ const Dashboard = () => {
     return () => observer.disconnect();
   }, [loading]);
   console.log(materials);
-
   return (
     <div>
-      <h1>Dashboard</h1>
-      <div className="grid grid-cols-4">
+      <div className="grid grid-cols-2 2xl:grid-cols-4 gap-4">
         {materials.map((m) => (
           <MaterialCard key={m.Id} data={m} />
         ))}
@@ -63,4 +61,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Materials;
