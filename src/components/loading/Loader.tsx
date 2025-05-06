@@ -1,4 +1,3 @@
-// components/ui/Loader.tsx
 const Loader = () => {
   return (
     <div className="flex justify-center items-center py-10">

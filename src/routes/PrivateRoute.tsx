@@ -1,3 +1,4 @@
+import GlobalLoading from "@/components/loading/GlobalLoading";
 import type { Children } from "@/lib/types/types";
 import { useAuth } from "@/providers/AuthContext";
 
@@ -8,7 +9,7 @@ const PrivateRoute = ({ children }: Children) => {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <GlobalLoading />;
   }
 
   if (!user) {
