@@ -1,13 +1,10 @@
+import type { Children } from "@/lib/types/types";
 import { useAuth } from "@/providers/AuthContext";
-import type { ReactNode } from "react";
+
 import { Navigate } from "react-router-dom";
 import { toast } from "sonner";
 
-interface PrivateRouteProps {
-  children: ReactNode;
-}
-
-const PrivateRoute = ({ children }: PrivateRouteProps) => {
+const PrivateRoute = ({ children }: Children) => {
   const { user, loading } = useAuth();
 
   if (loading) {
