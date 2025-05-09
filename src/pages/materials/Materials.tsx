@@ -12,8 +12,11 @@ const Materials = () => {
   const [skip, setSkip] = useState(0);
   const [loading, setLoading] = useState(false);
   const observerRef = useRef<HTMLDivElement | null>(null);
+  const isEndRef = useRef(false); // to stop when there's no more data
 
   const loadMaterials = useCallback(async () => {
+    if (loading || isEndRef.current) return;
+
     setLoading(true);
     const filter = encodeFilter({ Skip: skip, Limit: 20, Types: [1] });
 
@@ -23,24 +26,29 @@ const Materials = () => {
       );
       const newMaterials = res.data.Materials;
 
-      setMaterials((prev) => {
-        const existingIds = new Set(prev.map((m) => m.Id));
-        const uniqueNew = newMaterials.filter((m) => !existingIds.has(m.Id));
-        return [...prev, ...uniqueNew];
-      });
-
-      setSkip((prevSkip) => prevSkip + 20);
+      if (newMaterials.length === 0) {
+        isEndRef.current = true; // no more data
+      } else {
+        setMaterials((prev) => {
+          const existingIds = new Set(prev.map((m) => m.Id));
+          const uniqueNew = newMaterials.filter((m) => !existingIds.has(m.Id));
+          return [...prev, ...uniqueNew];
+        });
+        setSkip((prevSkip) => prevSkip + 20);
+      }
     } catch (error) {
       console.error("Failed to load materials:", error);
     } finally {
       setLoading(false);
     }
-  }, [skip]);
+  }, [skip, loading]);
 
+  // Initial load
   useEffect(() => {
     loadMaterials();
-  }, [loadMaterials]);
+  }, []); // empty dependency means only on mount
 
+  // Lazy load on scroll
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting && !loading) {
@@ -48,8 +56,12 @@ const Materials = () => {
       }
     });
 
-    if (observerRef.current) observer.observe(observerRef.current);
-    return () => observer.disconnect();
+    const current = observerRef.current;
+    if (current) observer.observe(current);
+
+    return () => {
+      if (current) observer.unobserve(current);
+    };
   }, [loadMaterials, loading]);
 
   if (loading && materials.length === 0) {
